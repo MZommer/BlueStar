@@ -39,16 +39,15 @@ def main():
     elif choice == "3":
         mapname = input("What's the CodeName of the song? ")
         MainJson = loadJson(requests.get(f"http://jdnowweb-s.cdn.ubi.com/uat/release_tu2/20150928_1740/songs/{mapname}/{mapname}.json").text)
-        MainJson["isJDN"] = True
+        MainJson["isJDN"] = MainJson["OriginalJDVersion"] < 5
         CoachCount = CoachCountResolver(MainJson.get("NumCoach", 1))
         for coach in range(CoachCount):
             Moves.append(loadJson(requests.get(f"http://jdnowweb-s.cdn.ubi.com/uat/release_tu2/20150928_1740/songs/{mapname}/data/moves/{mapname}_moves{coach}.json").text))
     
     print(MainJson["Title"] + " by " + MainJson["Artist"] + " loaded successfully!")
     
-    if not MainJson.get("isJDN"):
-        if input("Are this tmls from jdn? (y/n): ") == "y":
-            MainJson["isJDN"] = True
+    if not MainJson.get("isJDN") and MainJson["OriginalJDVersion"] < 5:
+            MainJson["isJDN"] = input("Are this tmls from jdn? (y/n): ") == "y"
     
     if not MainJson.get("goldEffects", None):
         MainJson["autoGoldEffects"] = {"1": "Pictos", "2": "Moves"}[input("What method you want to use for the Automatic Gold Moves?\n[1] Pictos\n[2] Moves\n: ")]
