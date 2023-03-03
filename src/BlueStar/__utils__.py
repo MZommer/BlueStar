@@ -2,6 +2,7 @@ from PIL import ImageColor
 import json
 import numpy as np
 
+
 ### JSON Reader functions ###
 
 def loadJson(JsonString):
@@ -32,13 +33,16 @@ def CoachCountResolver(CoachCount):
         }[CoachCount]
     return CoachCount
 
+
 ### Array functions ###
 
 def getClosestIndex(arr, value):
     return np.abs(np.subtract.outer(arr, value)).argmin(0)
 
+
 def getClosestValue(arr, value):
     return arr[getClosestIndex(arr, value)]
+
 
 ### Color functions ###
 

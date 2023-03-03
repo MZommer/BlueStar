@@ -6,8 +6,13 @@ import numpy as np
     TODO: Mainsequence functions
 """
 
+
 class Song:
-    def __init__(self, MapName, beats, JDVersion=2022, OriginalJDVersion=2022, Difficulty="Normal", LocaleID=0xffffffff, Artist="TBA", Title="TBA", Credits="CREDITS STRING TO BE FILLED", DefaultColors=None, lyricsColor="FF0000", videoOffset=0, lyrics=[], pictos=[], AudioPreview={}, moves=[], kinectMoves=[], autodances=[], AmbientSounds=[], HideUserInterface=[], isJDN=False, endBeat=None, goldEffects=None, autoGoldEffects="Moves", hideUserInterface=None, **kwargs):
+    def __init__(self, MapName, beats, JDVersion=2022, OriginalJDVersion=2022, Difficulty="Normal", LocaleID=0xffffffff,
+                 Artist="TBA", Title="TBA", Credits="CREDITS STRING TO BE FILLED", DefaultColors=None,
+                 lyricsColor="FF0000", videoOffset=0, lyrics=[], pictos=[], AudioPreview={}, moves=[], kinectMoves=[],
+                 autodances=[], AmbientSounds=[], HideUserInterface=[], isJDN=False, endBeat=None, goldEffects=None,
+                 autoGoldEffects="Moves", hideUserInterface=None, **kwargs):
         self.MapName = MapName
         self.mapname = MapName.lower()
         self.isJDN = isJDN
@@ -31,7 +36,8 @@ class Song:
         self.autodances = autodances
         self.AmbientSounds = AmbientSounds
         self.beats = sorted(list(set(beats)))
-        if self.beats[0] != 0: self.beats.insert(0, 0)
+        if self.beats[0] != 0:
+            self.beats.insert(0, 0)
         self.units = [0]
         self.__makeUnitArray()
         self.__goldEffectsArr = []
@@ -90,12 +96,11 @@ class Song:
         for index, beat in enumerate(self.beats):
             if beat == 0:
                 continue
-            delay = (beat - self.beats[index-1])
+            delay = (beat - self.beats[index - 1])
             unit = delay / 24
             for _ in range(int(delay / unit)):
                 units.append(units[-1] + unit)
         self.units = np.asarray(units, dtype=np.int32)
-
 
     def getMarker(self, time):
         marker = getClosestIndex(self.units, np.abs(time)).item()
@@ -133,7 +138,7 @@ class Song:
 
     def __colorsResolver(self):
         if self.DefaultColors is None or not self.DefaultColors.get("songcolor_2a"):
-            # Checks if DefaultColors is none or if it doesnt have the menu colors
+            # Checks if DefaultColors is none or if it doesn't have the menu colors
             return {  # Placeholder colors
                 "songcolor_2a": [1, 0.666667, 0.666667, 0.666667],
                 "lyrics": hex2perc(self.lyricsColor),
@@ -188,7 +193,8 @@ class Song:
                 "Title": self.Title,
                 "Credits": self.Credits,
                 "PhoneImages": {
-                    f"coach{i+1}": f"world/maps/{self.mapname}/menuart/textures/{self.mapname}_coach_{i+1}_phone.png" for i in range(len(self.moves))
+                    f"coach{i + 1}": f"world/maps/{self.mapname}/menuart/textures/{self.mapname}_coach_{i + 1}_phone.png"
+                    for i in range(len(self.moves))
                 },
                 "NumCoach": len(self.moves),
                 "MainCoach": -1,
@@ -206,8 +212,8 @@ class Song:
             }
             ]
         }
-        self.songdesc["COMPONENTS"][0]["PhoneImages"][
-            "cover"] = f"world/maps/{self.mapname}/menuart/textures/{self.mapname}_cover_phone.jpg"
+        self.songdesc["COMPONENTS"][0]["PhoneImages"]["cover"] \
+            = f"world/maps/{self.mapname}/menuart/textures/{self.mapname}_cover_phone.jpg"
         if self.MapName.lower().endswith("alt"):
             self.songdesc["COMPONENTS"][0]["RelatedAlbums"] = [self.MapName[:-3]]
 
@@ -252,7 +258,7 @@ class Song:
                         "sections": [
                             {
                                 "__class": "MusicSection",
-                                "marker": i*16,
+                                "marker": i * 16,
                                 "sectionType": 0,
                                 "comment": ""
                             } for i in range(len(self.markers) // 16)
@@ -419,42 +425,42 @@ class Song:
             })
             self.ambtpls.append({
                 "COMPONENTS": [{
-                        "__class": "SoundComponent_Template",
-                        "soundList": [{
-                                "__class": "SoundDescriptor_Template",
-                                "category": "amb",
-                                "files": [f"world/maps/{self.mapname}/audio/amb/amb_{self.mapname}_{index}.tpl"],
-                                "limitCategory": "",
-                                "limitMode": 0,
-                                "maxInstances": 4294967295,
-                                "name": f"amb_{self.mapname}_{clip['name'].lower()}",
-                                "outDevices": 4294967295,
-                                "params": {
-                                    "__class": "SoundParams",
-                                    "delay": 0,
-                                    "fadeInTime": 0,
-                                    "fadeOutTime": 0,
-                                    "filterFrequency": 0,
-                                    "filterType": 2,
-                                    "loop": 0,
-                                    "pitch": 1,
-                                    "playMode": 1,
-                                    "playModeInput": "",
-                                    "randomDelay": 0,
-                                    "randomPitchMax": 1,
-                                    "randomPitchMin": 1,
-                                    "randomVolMax": 0,
-                                    "randomVolMin": 0,
-                                    "transitionSampleOffset": 0
-                                },
-                                "pauseInsensitiveFlags": 0,
-                                "serialPlayingMode": 0,
-                                "serialStoppingMode": 0,
-                                "soundPlayAfterdestroy": 0,
-                                "volume": 0
-                            }
-                        ]
+                    "__class": "SoundComponent_Template",
+                    "soundList": [{
+                        "__class": "SoundDescriptor_Template",
+                        "category": "amb",
+                        "files": [f"world/maps/{self.mapname}/audio/amb/amb_{self.mapname}_{index}.tpl"],
+                        "limitCategory": "",
+                        "limitMode": 0,
+                        "maxInstances": 4294967295,
+                        "name": f"amb_{self.mapname}_{clip['name'].lower()}",
+                        "outDevices": 4294967295,
+                        "params": {
+                            "__class": "SoundParams",
+                            "delay": 0,
+                            "fadeInTime": 0,
+                            "fadeOutTime": 0,
+                            "filterFrequency": 0,
+                            "filterType": 2,
+                            "loop": 0,
+                            "pitch": 1,
+                            "playMode": 1,
+                            "playModeInput": "",
+                            "randomDelay": 0,
+                            "randomPitchMax": 1,
+                            "randomPitchMin": 1,
+                            "randomVolMax": 0,
+                            "randomVolMin": 0,
+                            "transitionSampleOffset": 0
+                        },
+                        "pauseInsensitiveFlags": 0,
+                        "serialPlayingMode": 0,
+                        "serialStoppingMode": 0,
+                        "soundPlayAfterdestroy": 0,
+                        "volume": 0
                     }
+                    ]
+                }
                 ],
                 "FORCEISENVIRONMENT": 0,
                 "LOWUPDATE": 0,
