@@ -9,7 +9,7 @@ def loadJson(JsonString):
     try:
         return json.loads(JsonString)
     except:
-        return json.loads("(".join(JsonString.split("(")[1:])[:-1])
+        return json.loads(JsonString.rstrip("\x0D\x0A").split('(', 1)[1].rsplit(')', 1)[0])
 
 
 def openJson(path):
