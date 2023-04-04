@@ -137,24 +137,13 @@ class Song:
         self.markers = [round(beat * 48) for beat in self.beats]
 
     def __colorsResolver(self):
-        if self.DefaultColors is None or not self.DefaultColors.get("songcolor_2a"):
-            # Checks if DefaultColors is none or if it doesn't have the menu colors
-            return {  # Placeholder colors
-                "songcolor_2a": [1, 0.666667, 0.666667, 0.666667],
-                "lyrics": hex2perc(self.lyricsColor),
-                "theme": [1, 1, 1, 1],
-                "songcolor_1a": [1, 0.266667, 0.266667, 0.266667],
-                "songcolor_2b": [1, 0.466667, 0.466667, 0.466667],
-                "songcolor_1b": [1, 0.066667, 0.066667, 0.066667]
-            }
-        else:
-            return {
-                "songcolor_2a": hex2perc(self.DefaultColors["songcolor_2a"]),
-                "lyrics": hex2perc(self.DefaultColors["lyrics"]),
-                "theme": [1, 1, 1, 1],
-                "songcolor_1a": hex2perc(self.DefaultColors["songcolor_1a"]),
-                "songcolor_2b": hex2perc(self.DefaultColors["songcolor_2b"]),
-                "songcolor_1b": hex2perc(self.DefaultColors["songcolor_1b"])
+        return {
+                "songcolor_2a": hex2perc(self.DefaultColors.get("songColor_2A", "AAAAAA")),
+                "lyrics": hex2perc(self.lyricsColor or self.DefaultColors.get("lyrics", "FF0000")),
+                "theme": hex2perc(self.DefaultColors.get("theme", "FFFFFF")),
+                "songcolor_1a": hex2perc(self.DefaultColors.get("songColor_1A", "444444")),
+                "songcolor_2b": hex2perc(self.DefaultColors.get("songColor_2B", "777777")),
+                "songcolor_1b": hex2perc(self.DefaultColors.get("songColor_1B", "111111")),
             }
 
     def __makeSongDesc(self):
