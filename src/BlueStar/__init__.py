@@ -160,7 +160,7 @@ class Song:
             "Easy": 0,
             "Normal": 1,
             "Hard": 2,
-            "Exteme": 3,
+            "Extreme": 3,
             "Max": 4
         }
         Difficulty = self.Difficulty if isinstance(self.Difficulty, int) else DifficultyResolver[self.Difficulty]
@@ -210,11 +210,11 @@ class Song:
         self.__makeMarkers()
         if self.endBeat is None:
             self.endBeat = len(self.markers)
-        if self.AudioPreview.get("prelobby", False):  # JDN
+        if self.AudioPreview.get("prelobby"):  # JDN
             previewLoopStart = self.AudioPreview["prelobby"]["startbeat"]
             previewEntry = previewLoopStart - 1
             previewLoopEnd = self.AudioPreview["prelobby"].get("endbeat", self.endBeat)
-        elif self.AudioPreview.get("loopStart", False):  # JDVS
+        elif self.AudioPreview.get("loopStart"):  # JDVS
             previewEntry = self.beats.index(getClosestValue(self.beats, self.AudioPreview["entry"] * 1000))
             previewLoopStart = previewEntry + self.beats.index(getClosestValue(self.beats, self.AudioPreview[
                 "loopStart"] * 1000))
@@ -238,11 +238,12 @@ class Song:
                     "structure": {
                         "__class": "MusicTrackStructure",
                         "markers": self.markers,
-                        "signatures": [{
-                            "__class": "MusicSignature",
-                            "marker": 0,
-                            "beats": 4
-                        }
+                        "signatures": [
+                            {
+                                "__class": "MusicSignature",
+                                "marker": 0,
+                                "beats": 4
+                            }
                         ],
                         "sections": [
                             {
