@@ -9,7 +9,7 @@ import numpy as np
 
 class Song:
     def __init__(self, MapName, beats, JDVersion=2022, OriginalJDVersion=2022, Difficulty="Normal", LocaleID=0xffffffff,
-                 Artist="TBA", Title="TBA", Credits="CREDITS STRING TO BE FILLED", DefaultColors=None,
+                 Artist="TBA", Title="TBA", Credits="CREDITS STRING TO BE FILLED", DefaultColors={},
                  lyricsColor="FF0000", videoOffset=0, lyrics=[], pictos=[], AudioPreview={}, moves=[], kinectMoves=[],
                  autodances=[], AmbientSounds=[], HideUserInterface=[], isJDN=False, endBeat=None, goldEffects=None,
                  autoGoldEffects="Moves", hideUserInterface=None, **kwargs):
