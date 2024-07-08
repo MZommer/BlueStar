@@ -400,6 +400,7 @@ class Song:
             })
         for index, clip in enumerate(self.AmbientSounds):
             StartTime, Duration = self.makeTime(clip["time"], clip["duration"])
+            name = clip.get("name", index)
             clips.append({
                 "__class": "SoundSetClip",
                 "Id": random.randint(0, 0xffffffff),
@@ -407,7 +408,7 @@ class Song:
                 "IsActive": 1,
                 "StartTime": StartTime,
                 "Duration": Duration,
-                "SoundSetPath": f"world/maps/{self.mapname}/audio/amb/amb_{self.mapname}_{index}.tpl",
+                "SoundSetPath": f"world/maps/{self.mapname}/audio/amb/amb_{self.mapname}_{name}.tpl",
                 "SoundChannel": 0,
                 "StartOffset": 0,
                 "StopsOnEnd": clip["StopsOnEnd"],
